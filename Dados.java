@@ -10,6 +10,7 @@ public class Dados {
     int cantDados; // La cantida de dados que va a ingresar el usuario
     // Imprimimos el mensaje por pantalla
     System.out.println("COMBINACIONES DE DADOS");
+    System.out.println("Obtener las combinaciones múltiplos de la cantidad de dados");
     
     Scanner leer = new Scanner(System.in); // instanceamos la clase scanner
     // para ultizar el método nextInt que obtendrá un en entero del usuario
@@ -51,28 +52,35 @@ public class Dados {
         // Esta variable solo se va a llenar cuando la suma de los números(como cifras)
         // dividido por la cantidad de dados arroje de resto 0
         if(stringANumero(suma) % dados.length == 0) {
-          String tmp = ""; 
+          String tmp = ""; // declaramos la variable temporal 
           for(int j = 0; j < dados.length; j++) {
-            tmp += dados[j];
+            tmp += dados[j]; // concatenamos el número correspondiente del arreglo de dados
           }
           
-          // Si 
+          // Si el número temporal es múltiplo y no está dentro del arreglo de multiplos
+          // lo imprimimos y lo mostramos por pantalla
           if (stringANumero(tmp) % dados.length == 0 && !arregloMultiplos.contains(stringANumero(tmp))) {
             System.out.print(tmp + " ");
-            arregloMultiplos.add(stringANumero(tmp));
+            arregloMultiplos.add(stringANumero(tmp)); // lo añadimos al arreglo
           }
         }
       }
-      
+      // Si todavía no se tiraron todos los dados ejecutamos este bloque
     } else if (tirada != dados.length) {
 
+      // Generamos la combinación con este for
       for ( int i = 1; i <= 6; i++) {
+        // En la posición correspondiente le asignamos el numero de la i
         dados[tirada] = i;
 
+        // concatenamos el valor de la suma de cifra
         suma += i;
 
+        // ejecutamos la misma función esta vez aumentando el numero de la tirada
+        // para así pasar al siguiente dado
         combinaciones(dados, suma, tirada + 1);
 
+        // reseteamos la variable de suma
         suma = "";
       }
 
