@@ -66,11 +66,12 @@ public class Dados {
         }
       }
       // Si todavía no se tiraron todos los dados ejecutamos este bloque
-    } else if (tirada != dados.length) {
+    } else if (tirada < dados.length) {
 
       // Generamos la combinación con este for
       for ( int i = 1; i <= 6; i++) {
-        // En la posición correspondiente le asignamos el numero de la i
+        // en la posición de la tira [0 a N] le asignamos el número de i que llega hasta 6
+        // por la cantidad de dados
         dados[tirada] = i;
 
         // concatenamos el valor de la suma de cifra
