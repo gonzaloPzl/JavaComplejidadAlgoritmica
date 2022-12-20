@@ -38,7 +38,7 @@ public class Dados {
   }
 
   // Métdo que realiza las combinaciones
-  public void combinaciones(int[] dados, String suma, int tirada) {
+  public void combinaciones(int[] dados, String sumaCifras, int tirada) {
     // Declaramos una lista que va a almacenar las combinaciones que nos interesan
     ArrayList<Integer> arregloMultiplos = new ArrayList<Integer>();
 
@@ -51,17 +51,17 @@ public class Dados {
         
         // Esta variable solo se va a llenar cuando la suma de los números(como cifras)
         // dividido por la cantidad de dados arroje de resto 0
-        if(stringANumero(suma) % dados.length == 0) {
-          String tmp = ""; // declaramos la variable temporal 
+        if(stringANumero(sumaCifras) % dados.length == 0) {
+          sumaCifras = ""; // reseteamos la sumaCifras 
           for(int j = 0; j < dados.length; j++) {
-            tmp += dados[j]; // concatenamos el número correspondiente del arreglo de dados
+            sumaCifras += dados[j]; // concatenamos el número correspondiente del arreglo de dados
           }
           
-          // Si el número temporal es múltiplo y no está dentro del arreglo de multiplos
+          // Si la sumaCifras es múltiplo y no está dentro del arreglo de multiplos
           // lo imprimimos y lo mostramos por pantalla
-          if (stringANumero(tmp) % dados.length == 0 && !arregloMultiplos.contains(stringANumero(tmp))) {
-            System.out.print(tmp + " ");
-            arregloMultiplos.add(stringANumero(tmp)); // lo añadimos al arreglo
+          if (stringANumero(sumaCifras) % dados.length == 0 && !arregloMultiplos.contains(stringANumero(sumaCifras))) {
+            System.out.print(sumaCifras + " ");
+            arregloMultiplos.add(stringANumero(sumaCifras)); // lo añadimos al arreglo
           }
         }
       }
@@ -74,14 +74,14 @@ public class Dados {
         dados[tirada] = i;
 
         // concatenamos el valor de la suma de cifra
-        suma += i;
+        sumaCifras += i;
 
         // ejecutamos la misma función esta vez aumentando el numero de la tirada
         // para así pasar al siguiente dado
-        combinaciones(dados, suma, tirada + 1);
+        combinaciones(dados, sumaCifras, tirada + 1);
 
-        // reseteamos la variable de suma
-        suma = "";
+        // reseteamos la variable de sumaCifras
+        sumaCifras = "";
       }
 
     }
