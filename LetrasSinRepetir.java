@@ -1,19 +1,20 @@
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 import java.text.Normalizer;
 
 public class LetrasSinRepetir {
   public static void main(String[] args) throws Exception {
-    Map<Character, Integer> map = new HashMap<Character, Integer>();
+    // Utilizamos la estructura de datos map para tener clave y valor y así
+    // poder contabilizar las apariciones
+    LinkedHashMap<Character, Integer> map = new LinkedHashMap<Character, Integer>();
+    // En este array pondremos las que no se encuentran repetidas
     ArrayList<Character> arrayNoRepetido = new ArrayList<>();
     // Declaramos e inicializamos variables
     String secuenciaLetras = ""; // string con la secuencia de letras
-    String primeraNoRepetida = "";
-    String ultimaNoRepetida = "";
+    int indexPrimeraNoRepetida = 0;
+    int indexUltimaNoRepetida = 0;
 
     // instanciamos la clase File que recibe en su contructor la ruta donde tenemos
     // el archivo que queremos leer
@@ -25,30 +26,59 @@ public class LetrasSinRepetir {
     // Lee la linea con la secuencia de letras y la asigna como valor a la variable
     // tipo string secuenciaLetras
     secuenciaLetras = leer.nextLine();
-    System.out.println(secuenciaLetras);
 
     // Creamos el arreglo normalizado con nuestro método de normalizarString
     char[] arregloLetrasNormalizado = normalizarString(secuenciaLetras);
-    System.out.println(arregloLetrasNormalizado);
 
+    // iteramos el arreglo de letras normalizado
     for (int i = 0; i < arregloLetrasNormalizado.length; i++) {
+      // si el caracter no se encuentra en el map lo agregamos
       if(!map.containsKey(arregloLetrasNormalizado[i])) {
         map.put(arregloLetrasNormalizado[i], 1);
+      // en caso de que se encuentre cambiamos su value amentandolo  
       } else {
         map.put(arregloLetrasNormalizado[i], map.get(arregloLetrasNormalizado[i]) + 1);
       }
     }
 
-    System.out.println(map);
+    // iteramos el map que llenamos con las letras y la cantidad de apariciones
+    map.forEach(
+          (k, v) -> {
+              if (v == 1){ // en el caso del que el valor del key sea igual a 1 lo agregamos al array no repetido
+                  arrayNoRepetido.add(k);
+              }
+          }
+      );
 
-    // for(int i = 0; i < map.size(); i++) {
-    //   if(map.get(i) == 1) {
-    //     map.remove(arregloLetrasNormalizado[i]);
-    //   }
-    // }
-    map.forEach((k,v) -> System.out.println("Key: " + k + ": Value: " + v));
 
-    // System.out.println(map);
+    // Nos aseguramos de que haya palabras no repetidas, sino vamos directo al else
+    if(arrayNoRepetido.size() >= 1) {
+      // iteramos para obetener el indice de la primera no repetida
+      for (int i = 0; i < arregloLetrasNormalizado.length; i++) {
+        // en el caso de que el primer elemento del arreglo de caracteres
+        // no repetidos sea igual al que estamos comparando en el arreglo normalizado entramos
+        if(arrayNoRepetido.get(0) == arregloLetrasNormalizado[i]) {
+          // le asignamos el valor de i al index de la primera no repetida
+          indexPrimeraNoRepetida = i;
+          // ejecutamos un break para que deje de iterar
+          break;
+        }
+      }
+      // obtenemos la posición de la última letra
+      // en este caso el valor de la i será la última posición del arreglo para así poder iterarlo hacia atras
+      for(int i = arregloLetrasNormalizado.length - 1; i > 0; i--) {
+        // cuando haya concidencia entra
+        if(arrayNoRepetido.get(arrayNoRepetido.size() - 1) == arregloLetrasNormalizado[i]) {
+          // se le asigna el indice y se ejecuta el break
+          indexUltimaNoRepetida = i;
+          break;
+        }
+      }
+      // Se imprimen por pantalla los resultados, agregamos 1 a los indices por la contabilidad desde 0 en programación
+      System.out.println("La letra " + arrayNoRepetido.get(0) + " en la posición "+ (indexPrimeraNoRepetida + 1) + " es la primera no repetida y la letra " + arrayNoRepetido.get(arrayNoRepetido.size() - 1) + " en la posición " + (indexUltimaNoRepetida + 1) + " es la última no repetida.");
+    } else { // en caso de no haber palabras no repetidas
+      System.out.println("No hay letras no repetidas");
+    }
 
   }
 
