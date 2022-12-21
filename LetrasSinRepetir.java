@@ -9,6 +9,10 @@ public class LetrasSinRepetir {
     // Utilizamos la estructura de datos map para tener clave y valor y así
     // poder contabilizar las apariciones
     LinkedHashMap<Character, Integer> map = new LinkedHashMap<Character, Integer>();
+
+    // R U T A   A  M O D I F I C A R 
+    String RUTA = "C:\\dev\\JavaComplejidadAlgoritmica\\secuenciaLetras.txt";
+
     // En este array pondremos las que no se encuentran repetidas
     ArrayList<Character> arrayNoRepetido = new ArrayList<>();
     // Declaramos e inicializamos variables
@@ -18,7 +22,11 @@ public class LetrasSinRepetir {
 
     // instanciamos la clase File que recibe en su contructor la ruta donde tenemos
     // el archivo que queremos leer
-    File documento = new File("C:\\dev\\JavaComplejidadAlgoritmica\\secuenciaLetras.txt");
+
+    
+    File documento = new File(RUTA);
+
+
     // Instanceamos la clase Scanner en leer que recibe la entra como parámetro
     // en este caso seria el objeto documento
     Scanner leer = new Scanner(documento);
@@ -75,7 +83,7 @@ public class LetrasSinRepetir {
         }
       }
       // Se imprimen por pantalla los resultados, agregamos 1 a los indices por la contabilidad desde 0 en programación
-      System.out.println("La letra " + arrayNoRepetido.get(0) + " en la posición "+ (indexPrimeraNoRepetida + 1) + " es la primera no repetida y la letra " + arrayNoRepetido.get(arrayNoRepetido.size() - 1) + " en la posición " + (indexUltimaNoRepetida + 1) + " es la última no repetida.");
+      System.out.println("La letra " + secuenciaLetras.charAt(indexPrimeraNoRepetida) + " en la posición "+ (indexPrimeraNoRepetida + 1) + " es la primera no repetida y la letra " + secuenciaLetras.charAt(indexUltimaNoRepetida) + " en la posición " + (indexUltimaNoRepetida + 1) + " es la última no repetida.");
     } else { // en caso de no haber palabras no repetidas
       System.out.println("No hay letras no repetidas");
     }
